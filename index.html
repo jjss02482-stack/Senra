@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senra | 专属定制，触手可及</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* 全局舒适色调与字体 */
+        :root {
+            --senra-light-bg: #fdfaf7; /* 极其浅的米白色 */
+            --senra-text-main: #3d3d3d; /* 深灰 */
+            --senra-text-sub: #7a7a7a; /* 暖灰 */
+            --senra-accent: #bda286; /* 低饱和藕粉/淡咖，作为点缀 */
+            --senra-border: #e0d9d2; /* 柔和边框 */
+        }
+
+        body {
+            font-family: 'Noto Serif SC', 'Playfair Display', serif; /* 中西文混搭，衬线体增添雅致 */
+            background-color: var(--senra-light-bg);
+            color: var(--senra-text-main);
+            line-height: 1.7;
+            margin: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* 导航栏 */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            background-color: var(--senra-light-bg);
+            border-bottom: 1px solid var(--senra-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 500;
+            color: var(--senra-accent); /* 品牌色 */
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+        .nav-links a {
+            color: var(--senra-text-sub);
+            text-decoration: none;
+            font-size: 15px;
+            margin-left: 35px;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        .nav-links a:hover {
+            color: var(--senra-accent);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            background: var(--senra-accent);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero 主视觉区 - 慵懒大图背景 */
+        .hero {
+            position: relative;
+            height: 85vh; /* 确保有足够慵懒的空间 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url('placeholder-hero.jpg') no-repeat center center / cover; /* 图片空位 */
+            background-attachment: fixed; /* 视差滚动，增加慵懒感 */
+            color: var(--senra-text-main);
+            padding: 0 5%;
+        }
+        .hero-content {
+            max-width: 800px;
+            padding: 40px;
+            background: rgba(255,255,255,0.85); /* 半透明背景，让文字更清晰 */
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            margin-bottom: 15px;
+            color: var(--senra-accent);
+            line-height: 1.2;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--senra-text-sub);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        .hero-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--senra-accent);
+            color: var(--senra-light-bg);
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .hero-button:hover {
+            background-color: #a38b71; /* 稍深一点 */
+            transform: translateY(-2px);
+        }
+
+        /* 通用区块样式 */
+        section {
+            padding: 80px 8%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--senra-accent);
+            margin-bottom: 60px;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 1px;
+            background: var(--senra-border);
+            margin: 20px auto 0;
+        }
+
+        /* 产品展示区 */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            justify-content: center;
+        }
+        .product-card {
+            background-color: #fff;
+            border: 1px solid var(--senra-border);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        .product-img-placeholder {
+            width: 100%;
+            height: 280px; /* 足够大的图片空位 */
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--senra-text-sub);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--senra-border);
+        }
+        .product-info {
+            padding: 0 25px 30px;
+        }
+        .product-info h3 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.6rem;
+            color: var(--senra-text-main);
+            margin-bottom: 10px;
+        }
+        .product-info p {
+            font-size: 0.95rem;
+            color: var(--senra-text-sub);
+            margin-bottom: 20px;
+        }
+        .customize-button {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: var(--senra-accent);
+            color: var(--senra-light-bg);
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .customize-button:hover {
+            background-color: #a38b71;
+        }
+
+        /* 定制流程区 */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        .step-card {
+            padding: 30px;
+            background-color: #fff;
+            border: 1px solid var(--senra-border);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        .step-icon {
+            font-size: 3rem;
+            color: var(--senra-accent);
+            margin-bottom: 15px;
+        }
+        .step-card h4 {
+            font-size: 1.3rem;
+            color: var(--senra-text-main);
+            margin-bottom: 10px;
+        }
+        .step-card p {
+            font-size: 0.9rem;
+            color: var(--senra-text-sub);
+        }
+
+        /* 页脚 */
+        footer {
+            margin-top: auto; /* 推到底部 */
+            background-color: var(--senra-text-main);
+            color: #e0e0e0;
+            text-align: center;
+            padding: 40px 8%;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--senra-border);
+        }
+        footer .footer-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        footer .footer-links a:hover {
+            color: var(--senra-accent);
+        }
+        footer p {
+            margin-top: 20px;
+            color: #b0b0b0;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* 移动端可以考虑汉堡菜单 */
+            .hero h1 { font-size: 2.8rem; }
+            .hero p { font-size: 1rem; }
+            .section-title { font-size: 2rem; }
+            .products-grid, .process-steps { grid-template-columns: 1fr; }
+            nav { padding: 15px 5%; }
+            section { padding: 60px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="nav-logo">Senra</a>
+        <div class="nav-links">
+            <a href="#products">定制产品</a>
+            <a href="#process">定制流程</a>
+            <a href="#contact">联系我们</a>
+        </div>
+    </nav>
+
+    <div class="hero" id="home">
+        <div class="hero-content">
+            <h1>Senra，专属定制，触手可及</h1>
+            <p>在这里，每一件物品都将印刻上您的独有风格。从柔软的衣物到实用的雨伞，定制您的专属故事。</p>
+            <a href="#products" class="hero-button">开启您的定制之旅</a>
+        </div>
+    </div>
+
+    <section id="products">
+        <h2 class="section-title">定制，从这里开始</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-img-placeholder">
+                    <span style="font-style: italic;">[图片空位: 衣服定制展示]</span>
+                </div>
+                <div class="product-info">
+                    <h3>个性衣物</h3>
+                    <p>选择您心仪的T恤、卫衣或外套，印上您的设计，穿出自我。</p>
+                    <a href="#contact" class="customize-button">立即定制</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-placeholder">
+                    <span style="font-style: italic;">[图片空位: 布袋定制展示]</span>
+                </div>
+                <div class="product-info">
+                    <h3>环保布袋</h3>
+                    <p>购物、出行，一个印有您专属图案的布袋，兼具时尚与实用。</p>
+                    <a href="#contact" class="customize-button">立即定制</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-placeholder">
+                    <span style="font-style: italic;">[图片空位: 雨伞定制展示]</span>
+                </div>
+                <div class="product-info">
+                    <h3>创意雨伞</h3>
+                    <p>雨季不再沉闷，让您的雨伞成为街头一道独特的风景线。</p>
+                    <a href="#contact" class="customize-button">立即定制</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" style="background-color: #f8f5f2;">
+        <h2 class="section-title">轻松定制，简单三步</h2>
+        <div class="process-steps">
+            <div class="step-card">
+                <div class="step-icon">①</div>
+                <h4>选择产品</h4>
+                <p>在衣物、布袋、雨伞中挑选您的定制基底。</p>
+            </div>
+            <div class="step-card">
+                <div class="step-icon">②</div>
+                <h4>提交设计</h4>
+                <p>上传您的图案、文字或与我们沟通您的创意。</p>
+            </div>
+            <div class="step-card">
+                <div class="step-icon">③</div>
+                <h4>等待惊喜</h4>
+                <p>我们精心制作，将专属定制品送达您手中。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">联系 Senra，开启创意</h2>
+        <p style="text-align: center; max-width: 600px; margin: 0 auto 40px; color: var(--senra-text-sub);">
+            无论是咨询、提交设计，还是有任何合作意向，我们都期待您的声音。
+        </p>
+        <div style="text-align: center;">
+            <p style="font-size: 1.2rem; color: var(--senra-text-main);">电话：[您的电话]</p>
+            <p style="font-size: 1.2rem; color: var(--senra-text-main);">邮箱：[您的邮箱]</p>
+            <p style="margin-top: 30px; font-size: 0.95rem; color: var(--senra-text-sub);">期待与您一同，将创意变为现实。</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#home">首页</a>
+            <a href="#products">定制产品</a>
+            <a href="#process">定制流程</a>
+            <a href="#contact">联系我们</a>
+        </div>
+        <p>&copy; 2026 Senra. All rights reserved. | 专属定制，独一无二。</p>
+    </footer>
+
+</body>
+</html>
